@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APPMOVIL.Views.ListaVuelosView">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView  Margin="10" ItemsSource="{Binding Partidas}" >
+                <CollectionView.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="TextColor" Value="#122B3C "></Setter>
+                    </Style>
+                </CollectionView.Resources>
+
+          
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame  Padding="1"  Background="#A3E4D7" CornerRadius="20">
+                            <StackLayout>
+                                <Label Text="{Binding Tiempo}"></Label>
+                             
+                                <Label Text="{Binding Destino}"></Label>
+                                <Label Text="{Binding Vuelo}"></Label>
+                                <Label Text="{Binding Puerta}"></Label>
+                                <Label Text="{Binding Status}"></Label>
+                            </StackLayout>
+                        
+                           
+
+
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Command="{Binding VerAgregarCommand}" Text="Agregar vuelo"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

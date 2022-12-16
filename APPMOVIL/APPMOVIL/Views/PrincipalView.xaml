@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:APPMOVIL.ViewModels"
+    x:Class="APPMOVIL.Views.PrincipalView">
+    <ContentPage.BindingContext>
+        <vm:AvionesViewModel></vm:AvionesViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+    
+    <StackLayout>
+            <Label Text="A feather's path Airline"
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand" />
+            <Image>
+                
+            </Image>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Button Command="{Binding VerAgregarCommand}" Text="Agregar vuelo"></Button>
+
+                <Button Command="{Binding VerListaCommand}" Text="Ver vuelos"></Button>
+            </StackLayout>
+         
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

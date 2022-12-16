@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APPMOVIL.Views.AgregarVuelo">
+    <ContentPage.Content>
+        
+        
+        <StackLayout>
+            <Label>Fecha de salida:</Label>
+            <DatePicker    Date="{Binding Fecha}"></DatePicker>
+            <Label>Hora de salida:</Label>
+            <TimePicker   Time="{ Binding Hora}"></TimePicker>
+           
+            <Label>Destino:</Label>
+            <Entry Text="{Binding Partida.Destino}"></Entry>
+
+            <Label>Clave de Vuelo:</Label>
+            <Entry Text="{Binding Partida.Vuelo}"></Entry>
+
+            <Label>Puerta de salida:</Label>
+        
+            <Picker ItemsSource="{Binding Puertas}" SelectedItem="{Binding Partida.Puerta}"></Picker>
+
+            <Button Command="{Binding AgregarCommand }" Text="Agregar"></Button>
+            <Label Text="{Binding Errores}"></Label>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
