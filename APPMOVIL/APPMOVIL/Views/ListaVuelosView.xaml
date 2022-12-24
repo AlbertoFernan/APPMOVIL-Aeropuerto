@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPMOVIL.Views.ListaVuelosView">
+             x:Class="APPMOVIL.Views.ListaVuelosView" x:Name="list">
     <ContentPage.Content>
         <StackLayout>
             <CollectionView  Margin="10" ItemsSource="{Binding Partidas}" >
@@ -11,21 +11,54 @@
                     </Style>
                 </CollectionView.Resources>
 
-          
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical"></LinearItemsLayout>
+                </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame  Padding="1"  Background="#A3E4D7" CornerRadius="20">
-                            <StackLayout>
-                                <Label Text="{Binding Tiempo}"></Label>
-                             
-                                <Label Text="{Binding Destino}"></Label>
-                                <Label Text="{Binding Vuelo}"></Label>
-                                <Label Text="{Binding Puerta}"></Label>
-                                <Label Text="{Binding Status}"></Label>
-                            </StackLayout>
-                        
+                    <DataTemplate >
+                        <Frame  Background="#A3E4D7" CornerRadius="20">
+                            <Grid RowSpacing="0" ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".05*"></RowDefinition>
+                                    <RowDefinition Height=".1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".5*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label HorizontalOptions="Center" Padding="0" Margin="0"  Grid.Row="0" Grid.ColumnSpan="2"  Grid.Column="0">Codigo de vuelo:</Label>
+                                <Label HorizontalOptions="Center"  Padding="0" Margin="0"  Grid.Row="1" Grid.ColumnSpan="2"  Grid.Column="0" Text="{Binding Vuelo}"></Label>
+                                <Label  Padding="0" Margin="0" Grid.Row="2"  Grid.Column="0" >Hora de salida: </Label>
+                                <Label Padding="0" Margin="0" Grid.Row="3" Grid.Column="0" Text="{Binding Tiempo}"></Label>
+                                <Label Padding="0" Margin="0"  Grid.Row="4" Grid.Column="0">Destino:</Label>
+                                <Label Padding="0" Margin="0"  Grid.Row="5" Grid.Column="0" Text="{Binding Destino}"></Label>
                            
+                                <Label Padding="0" Margin="0"  Grid.Row="6" Grid.Column="0">Puerta de salida:</Label>
+                                <Label Padding="0" Margin="0"  Grid.Row="7" Grid.Column="0" Text="{Binding Puerta}"></Label>
+                                <Label Padding="0" Margin="0"  Grid.Row="8" Grid.Column="0">Estatus:</Label>
+                                <Label Padding="0" Margin="0"  Grid.Row="9" Grid.Column="0" Text="{Binding Status}"></Label>
+                     
+                                <Button Text="Editar" Grid.Column="0" Grid.Row="10">
+                                   
+                                </Button>
+                                <Button Command="{Binding Source={x:Reference list}, Path=BindingContext.CancelarCommand}"
+                                                  CommandParameter="{Binding .}" Text="Cancelar" Grid.Column="1" Grid.Row="10">
+
+                                </Button>
+                            </Grid>
+
+
 
 
                         </Frame>

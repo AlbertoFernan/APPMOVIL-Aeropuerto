@@ -27,6 +27,7 @@ namespace APPMOVIL.ViewModels
        AvionesService AvionesService { get; set; }
      
         AgregarVuelo VistaAgregar;
+        EditarVueloView VistaEditar;
         ListaVuelosView VistaVuelos;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -34,10 +35,13 @@ namespace APPMOVIL.ViewModels
         public string Errores { get; set; }
 
         public ICommand VerAgregarCommand { get; set; }
+
+        public ICommand VerEditarCommand { get; set; }
         public ICommand VerListaCommand { get; set; }
 
         public ICommand AgregarCommand { get; set; }
-
+        public ICommand GuardarCommand { get; set; }
+        public ICommand CancelarCommand { get; set; }
         private static System.Timers.Timer aTimer;
 
 
@@ -49,9 +53,18 @@ namespace APPMOVIL.ViewModels
             VerListaCommand = new Command(VerLista);
            VerAgregarCommand = new Command(VerAgregar);
             AgregarCommand = new Command(Agregar);
+            CancelarCommand = new Command<Partidas>(Cancelar);
 
            
         }
+
+        private async void Cancelar(Partidas p)
+        {
+            p.Status = "Cancelado";
+            await AvionesService.Update(p);
+            Actualizar(nameof(Partidas));
+        }
+
         private  void SetTimer()
         {
             // Create a timer with a two second interval.
