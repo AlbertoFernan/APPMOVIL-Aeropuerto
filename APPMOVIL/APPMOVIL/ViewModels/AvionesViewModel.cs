@@ -98,40 +98,40 @@ namespace APPMOVIL.ViewModels
                 Partidas = await AvionesService.GetVuelos();
             
           
-            DateTime fechaactual = DateTime.Now;
-           // TimeSpan horaactual = DateTime.Now.TimeOfDay;
+           // DateTime fechaactual = DateTime.Now;
+           //// TimeSpan horaactual = DateTime.Now.TimeOfDay;
 
-            //foreach (var item in Partidas)
-            //{
-
-
-            //    if ((item.Fecha.Date <= fechaactual) && ((item.Hora - horaactual).TotalMinutes < 10))
-            //    {
-            //        item.Status = "On Boarding";
-            //        await AvionesService.Update(item);
-            //    }
-
-            //}
+           // //foreach (var item in Partidas)
+           // //{
 
 
-            foreach (var item in Partidas)
-            {
+           // //    if ((item.Fecha.Date <= fechaactual) && ((item.Hora - horaactual).TotalMinutes < 10))
+           // //    {
+           // //        item.Status = "On Boarding";
+           // //        await AvionesService.Update(item);
+           // //    }
+
+           // //}
 
 
-                if (item.Tiempo.Date <= fechaactual && item.Status!="On Boarding" )
-                {
-                    if (((item.Tiempo.TimeOfDay - fechaactual.TimeOfDay).TotalMinutes) < 10)
-                    {
-                        item.Status = "On Boarding";
-                        await AvionesService.Update(item);
-                    }
+           // foreach (var item in Partidas)
+           // {
+
+
+           //     if (item.Tiempo.Date <= fechaactual && item.Status!="On Boarding" )
+           //     {
+           //         if (((item.Tiempo.TimeOfDay - fechaactual.TimeOfDay).TotalMinutes) < 10)
+           //         {
+           //             item.Status = "On Boarding";
+           //             await AvionesService.Update(item);
+           //         }
            
 
 
-                }
+           //     }
               
 
-            }
+           // }
             Actualizar(nameof(Partidas));
            
 

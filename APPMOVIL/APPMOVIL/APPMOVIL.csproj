@@ -11,6 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\fondo.png" />
+    <None Remove="Imagenes\fondo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Imagenes\fondo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EcoCore" Version="7.0.0.14453" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
@@ -19,6 +30,10 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\fondo.png" />
   </ItemGroup>
 
   <ItemGroup>
