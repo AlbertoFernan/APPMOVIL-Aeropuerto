@@ -3,64 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMOVIL.Views.ListaVuelosView" x:Name="list">
     <ContentPage.Content>
-        <Grid>
-            
-        <Image Margin="0" Opacity="0.4" BackgroundColor="Transparent" Source="fondo2" HeightRequest="50" Aspect="AspectFill"/>
+        <StackLayout Spacing="0" >
+            <StackLayout Padding="10,0" Margin="0"  Background="black" Orientation="Horizontal">
+                <Label  Padding="0,25" TextColor="White" Text=" Aerolínea Mx"  HorizontalOptions="StartAndExpand" 
+                           FontAttributes="Bold"  VerticalOptions="Center" FontSize="26" />
+                <ImageButton Command="{Binding VerAgregarCommand}" WidthRequest="40" Source="addbutton" BackgroundColor="Black"></ImageButton>
+            </StackLayout>
+            <Label Padding="10,0,5,0" BackgroundColor="Black" TextColor="White" >Buscar por fecha:</Label>
+            <Frame Padding="10,5,10,10" Margin="0" BackgroundColor="Black" >
+                <StackLayout Orientation="Horizontal">
+                    <DatePicker HorizontalOptions="FillAndExpand"  Margin="0" Background="black" Date="{Binding FechaFiltro}" TextColor="White"   ></DatePicker>
+                    <Button Command="{Binding FiltrarCommand}" CornerRadius="20" FontSize="Medium" Background="#FFDC67" Text="🔎"></Button>
+                </StackLayout>
+               
+            </Frame>
+           
+            <ScrollView>
+                <CollectionView Margin="10,10,10,0" ItemsSource="{Binding PartidasFiltradas}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="15" Orientation="Vertical"></LinearItemsLayout>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout HeightRequest="250" Margin="10,10">
 
-        <StackLayout>
-            <CollectionView  Margin="10" ItemsSource="{Binding Partidas}" >
-                <CollectionView.Resources>
-                    <Style TargetType="Label">
-                        <Setter Property="TextColor" Value="#122B3C "></Setter>
-                    </Style>
-                </CollectionView.Resources>
+                                <Frame  Background="#D9D9D9" CornerRadius="20">
+                                    <Frame.Resources>
+                                        <Style TargetType="Label">
+                                            <Setter Property="TextColor" Value="Black"/>
+                                            <Setter Property="FontSize" Value="16"/>
+                                        </Style>
+                                    </Frame.Resources>
+                                    <Grid ColumnSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width=".3*"/>
+                                            <ColumnDefinition Width=".3*" />
+                                            <ColumnDefinition Width=".4*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Padding="0" Margin="0" Grid.Column="0" 
+                               Text="Vuelo:"/>
+                                        <Label Grid.Row="0" Padding="0"  Grid.Column="1"
+                               FontAttributes="Bold" FontSize="18" Text="{Binding Vuelo}"/>
+                                        <Label Padding="0" Margin="0" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2"
+                               >Hora de salida:</Label>
+                                        <Label Padding="0" Margin="0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                               FontAttributes="Bold" Text="{Binding Tiempo}"></Label>
+                                        <Label Padding="0" Margin="0"  Grid.Row="3" Grid.Column="0"
+                               VerticalTextAlignment="Center">Destino:</Label>
+                                        <Label Padding="0" Margin="0"  Grid.Row="4" Grid.Column="0" FontAttributes="Bold"
+                               Text="{Binding Destino}" VerticalTextAlignment="Center"></Label>
 
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="15" Orientation="Vertical"></LinearItemsLayout>
-                </CollectionView.ItemsLayout>
+                                        <Label Padding="0" Margin="0"  Grid.Row="1" Grid.Column="2">Puerta de salida:</Label>
+                                        <Label Padding="0" Margin="0"  Grid.Row="2" Grid.Column="2" 
+                               HorizontalTextAlignment="Center" FontAttributes="Bold"  Text="{Binding Puerta}"></Label>
+                                        <Label Padding="0" Margin="0"  Grid.Row="3" Grid.Column="1"
+                               VerticalTextAlignment="Center">Estatus:</Label>
+                                        <Label Padding="0" Margin="0"  Grid.Row="4" Grid.Column="1" FontAttributes="Bold" 
+                               VerticalTextAlignment="Center" Text="{Binding Status}"></Label>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate >
-                        <Frame Padding="0"   Background="white" CornerRadius="20" BorderColor="Transparent">
-                            <Grid Margin="0" Padding="0">
-
-                                <Image Margin="0" Opacity="0.55" BackgroundColor="Transparent" Source="fondolimpio" HeightRequest="50" Aspect="AspectFill"/>
-
-                                <StackLayout Margin="10">
-                                 
-
-                                    <Label HorizontalOptions="Center" Padding="0" Margin="0" >Codigo de vuelo:</Label>
-                                <Label HorizontalOptions="Center"  Padding="0" Margin="0" FontSize="Large"    Text="{Binding Vuelo}"></Label>
-                              
-                                <Label  Padding="0" Margin="0"  >Hora de salida: </Label>
-                                        <Label Padding="0" Margin="0" BackgroundColor="White" HorizontalOptions="Start" FontSize="Large" Text="{Binding Tiempo}"></Label>
-                                <Label Padding="0" Margin="0"   >Destino:</Label>
-                                        <Label Padding="0" Margin="0"   BackgroundColor="White"  HorizontalOptions="Start" FontSize="Large" Text="{Binding Destino}"></Label>
-                           
-                                <Label Padding="0" Margin="0"  Grid.Row="6" >Puerta de salida:</Label>
-                                        <Label Padding="0" Margin="0"   BackgroundColor="White" HorizontalOptions="Start" FontSize="Large" Text="{Binding Puerta}"></Label>
-                                <Label Padding="0" Margin="0"  >Estatus:</Label>
-                                        <Label Padding="0" Margin="0"   BackgroundColor="White" HorizontalOptions="Start" FontSize="Large" Text="{Binding Status}"></Label>
-                     
-                                <Button VerticalOptions="Center" Text="Editar" >
-                                   
-                                </Button>
-                                <Button VerticalOptions="Center"   Command="{Binding Source={x:Reference list}, Path=BindingContext.CancelarCommand}"
-                                                  CommandParameter="{Binding .}" Text="Cancelar" >
-
-                                </Button>
+                                        <Button Command="{Binding Source={x:Reference list}, Path=BindingContext.VerEditarCommand}"
+                                                  CommandParameter="{Binding .}" CornerRadius="10"  BackgroundColor="#FFDC67" TextColor="#49401D"   Grid.Row="3" Grid.Column="2" Text="Editar" />
+                                        <Button Command="{Binding Source={x:Reference list}, Path=BindingContext.CancelarCommand}"
+                                                  CommandParameter="{Binding .}" CornerRadius="10" BackgroundColor="Black" TextColor="#FFDC67" 
+                                                    Text="Cancelar" Grid.Column="2" Grid.Row="4"/>
+                                    </Grid>
+                                </Frame>
 
                             </StackLayout>
-                            </Grid>
-
-                        </Frame>
-
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Button Command="{Binding VerAgregarCommand}" Text="Agregar vuelo"></Button>
-            </StackLayout>
-        </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
         
 </ContentPage>

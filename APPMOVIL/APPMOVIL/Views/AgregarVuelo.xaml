@@ -3,27 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPMOVIL.Views.AgregarVuelo">
     <ContentPage.Content>
-        
-        
+
+        <Grid>
+
+            <Image Source="fondo7" Aspect="Fill" Margin="5" ></Image>
+
+  
         <StackLayout>
-            <Label>Fecha de salida:</Label>
-            <DatePicker    Date="{Binding Fecha}"></DatePicker>
-            <Label>Hora de salida:</Label>
-            <TimePicker   Time="{ Binding Hora}"></TimePicker>
-           
-            <Label>Destino:</Label>
-            <Entry Text="{Binding Partida.Destino}"></Entry>
+            <StackLayout >
 
-            <Label>Clave de Vuelo:</Label>
-            <Entry Text="{Binding Partida.Vuelo}"></Entry>
+                <StackLayout Padding="10,0"  Background="black" Orientation="Horizontal">
+                    <Label Padding="0,25" TextColor="White" Text=" Aerolínea Mx"  HorizontalOptions="StartAndExpand" 
+                           FontAttributes="Bold"  VerticalOptions="Center" FontSize="26" />
+                </StackLayout>
+            </StackLayout>
+         
+            <Frame CornerRadius="30" Margin="20">
+                <StackLayout Padding="10" BackgroundColor="White" >
 
-            <Label>Puerta de salida:</Label>
-        
-            <Picker ItemsSource="{Binding Puertas}" SelectedItem="{Binding Partida.Puerta}"></Picker>
+                    <StackLayout >
+                        <StackLayout.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="TextColor" Value="Black"/>
+                            </Style>
+                            <Style TargetType="Entry">
+                                <Setter Property="TextColor" Value="Black"/>
+                                    
+                                </Style>
+                        </StackLayout.Resources>
+                        <Label FontAttributes="Bold" FontSize="20" Text="¡Ingresa los datos del vuelo!"/>
+                        <Label>Fecha de salida:</Label>
+                        <DatePicker TextColor="Black"    Date="{Binding Fecha}"></DatePicker>
+                        <Label>Hora de salida:</Label>
+                            <TimePicker  TextColor="Black"     Time="{ Binding Hora}"></TimePicker>
 
-            <Button Command="{Binding AgregarCommand }" Text="Agregar"></Button>
-            <Label Text="{Binding Errores}"></Label>
+                        <Label>Destino:</Label>
+                            <Entry Placeholder="[Destino]" PlaceholderColor="Gray"  Text="{Binding Partida.Destino}"></Entry>
 
+                        <Label>Clave de Vuelo:</Label>
+                         <Entry  Placeholder="[Clave de Vuelo]" PlaceholderColor="Gray" Text="{Binding Partida.Vuelo}"></Entry>
+
+                        <Label >Puerta de salida:</Label>
+                            <Frame Padding="1" BackgroundColor="#242424" CornerRadius="10" Margin="0">
+                                <Picker     ItemsSource="{Binding Puertas}" SelectedItem="{Binding Partida.Puerta}">
+
+                                </Picker>
+                            </Frame>
+                       
+
+                        <Button TextColor="White" CornerRadius="40" BackgroundColor="#242424" Command="{Binding AgregarCommand }" Text="Agregar"></Button>
+                        <Label Text="{Binding Errores}"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
         </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

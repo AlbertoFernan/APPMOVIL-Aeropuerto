@@ -4,6 +4,7 @@ using APPMOVIL.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,17 +15,22 @@ using Xamarin.Forms;
 namespace APPMOVIL.ViewModels
 {
     public enum door { A01, B01, C01, D01 };
-    public class AvionesViewModel:INotifyPropertyChanged
+    public class AvionesViewModel : INotifyPropertyChanged
     {
 
         public DateTime Fecha { get; set; }
+
+        public DateTime FechaFiltro { get; set; }
         public TimeSpan Hora { get; set; }
-        public Array Puertas{ get; set; }
+        public List<string> Puertas{ get; set; }
+
+   
         public Partidas Partida { get; set; }
 
         public List<Partidas> Partidas { get; set; }
+        public List<Partidas> PartidasFiltradas { get; set; }
 
-       AvionesService AvionesService { get; set; }
+        AvionesService AvionesService { get; set; }
      
         AgregarVuelo VistaAgregar;
         EditarVueloView VistaEditar;
@@ -35,7 +41,7 @@ namespace APPMOVIL.ViewModels
         public string Errores { get; set; }
 
         public ICommand VerAgregarCommand { get; set; }
-
+        public ICommand FiltrarCommand { get; set; }
         public ICommand VerEditarCommand { get; set; }
         public ICommand VerListaCommand { get; set; }
 
@@ -47,19 +53,44 @@ namespace APPMOVIL.ViewModels
 
         public AvionesViewModel()
         {
-            Puertas = Enum.GetValues(typeof(door));
+            Puertas = new List<string>();
+            foreach (var item in Enum.GetValues(typeof(door)))
+            {
+                Puertas.Add(item.ToString()) ;
+            }
+
             AvionesService = new AvionesService();
             AvionesService.Error += AvionesService_Error;
             VerListaCommand = new Command(VerLista);
-           VerAgregarCommand = new Command(VerAgregar);
+            VerEditarCommand = new Command<Partidas>(VerEditar);
+            FiltrarCommand = new Command(Filtrar);
+            GuardarCommand = new Command(Guardar);
+            VerAgregarCommand = new Command(VerAgregar);
             AgregarCommand = new Command(Agregar);
             CancelarCommand = new Command<Partidas>(Cancelar);
 
-           
+            FechaFiltro=DateTime.Now.Date;
+        }
+
+        private void Filtrar(object obj)
+        {
+            PartidasFiltradas = Partidas.Select(x => x).Where(x => x.Tiempo.Date == FechaFiltro).ToList();
+            Actualizar(nameof(PartidasFiltradas));
+        }
+
+        private async void Guardar()
+        {
+            if (await AvionesService.Update(Partida))
+            {
+               
+              
+                VerLista();
+            }
         }
 
         private async void Cancelar(Partidas p)
         {
+    
             p.Status = "Cancelado";
             await AvionesService.Update(p);
             Actualizar(nameof(Partidas));
@@ -67,9 +98,9 @@ namespace APPMOVIL.ViewModels
 
         private  void SetTimer()
         {
-            // Create a timer with a two second interval.
-            aTimer = new System.Timers.Timer(10000);
-            // Hook up the Elapsed event for the timer. 
+          
+            aTimer = new System.Timers.Timer(20000);
+       
             aTimer.Elapsed += ATimer_ElapsedAsync;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
@@ -86,6 +117,7 @@ namespace APPMOVIL.ViewModels
            await ActualizarLista();
            SetTimer();
 
+           
             VistaVuelos = new ListaVuelosView() { BindingContext = this };
 
             await Application.Current.MainPage.Navigation.PushAsync(VistaVuelos);
@@ -96,43 +128,44 @@ namespace APPMOVIL.ViewModels
         {
           
                 Partidas = await AvionesService.GetVuelos();
-            
-          
-           // DateTime fechaactual = DateTime.Now;
-           //// TimeSpan horaactual = DateTime.Now.TimeOfDay;
-
-           // //foreach (var item in Partidas)
-           // //{
 
 
-           // //    if ((item.Fecha.Date <= fechaactual) && ((item.Hora - horaactual).TotalMinutes < 10))
-           // //    {
-           // //        item.Status = "On Boarding";
-           // //        await AvionesService.Update(item);
-           // //    }
+            // DateTime fechaactual = DateTime.Now;
+            //// TimeSpan horaactual = DateTime.Now.TimeOfDay;
 
-           // //}
+            // //foreach (var item in Partidas)
+            // //{
 
 
-           // foreach (var item in Partidas)
-           // {
+            // //    if ((item.Fecha.Date <= fechaactual) && ((item.Hora - horaactual).TotalMinutes < 10))
+            // //    {
+            // //        item.Status = "On Boarding";
+            // //        await AvionesService.Update(item);
+            // //    }
+
+            // //}
 
 
-           //     if (item.Tiempo.Date <= fechaactual && item.Status!="On Boarding" )
-           //     {
-           //         if (((item.Tiempo.TimeOfDay - fechaactual.TimeOfDay).TotalMinutes) < 10)
-           //         {
-           //             item.Status = "On Boarding";
-           //             await AvionesService.Update(item);
-           //         }
-           
+            // foreach (var item in Partidas)
+            // {
 
 
-           //     }
-              
+            //     if (item.Tiempo.Date <= fechaactual && item.Status!="On Boarding" )
+            //     {
+            //         if (((item.Tiempo.TimeOfDay - fechaactual.TimeOfDay).TotalMinutes) < 10)
+            //         {
+            //             item.Status = "On Boarding";
+            //             await AvionesService.Update(item);
+            //         }
 
-           // }
-            Actualizar(nameof(Partidas));
+
+
+            //     }
+
+
+            // }
+            PartidasFiltradas = Partidas.Select(x => x).Where(x => x.Tiempo.Date == FechaFiltro).ToList();
+            Actualizar(nameof(PartidasFiltradas));
            
 
           
@@ -150,12 +183,12 @@ namespace APPMOVIL.ViewModels
         private async void Agregar()
         {
            
-            Partida.Status = "on Time";
+            Partida.Status = "Programado";
             DateTime tiempo = new DateTime(Fecha.Year, Fecha.Month, Fecha.Day, Hora.Hours, Hora.Minutes, Hora.Seconds);
             Partida.Tiempo= tiempo;
             if (await AvionesService.Insert(Partida))
             {
-                Actualizar(nameof(Partidas));
+               
                 VerLista();
             }
            
@@ -175,6 +208,20 @@ namespace APPMOVIL.ViewModels
              
 
         }
+
+        private void VerEditar(Partidas p)
+        {
+            Partida = p;
+
+           
+            
+            VistaEditar = new EditarVueloView() { BindingContext = this };
+
+            Application.Current.MainPage.Navigation.PushAsync(VistaEditar);
+
+
+        }
+
 
         public void Actualizar(string name = null)
         {

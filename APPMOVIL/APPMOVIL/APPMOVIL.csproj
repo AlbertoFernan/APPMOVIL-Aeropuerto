@@ -11,7 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\fondo.png" />
     <None Remove="Imagenes\fondo.png" />
   </ItemGroup>
 
