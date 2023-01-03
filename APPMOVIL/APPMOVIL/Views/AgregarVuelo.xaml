@@ -6,7 +6,7 @@
 
         <Grid>
 
-            <Image Source="fondo7" Aspect="Fill"  ></Image>
+            <Image Source="fondo7" Aspect="Fill" Margin="0"  ></Image>
 
   
         <StackLayout>
