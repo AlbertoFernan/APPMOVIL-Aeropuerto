@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:APPMOVIL.ViewModels"
-    x:Class="APPMOVIL.Views.PrincipalView" NavigationPage.HasNavigationBar="False">
+    x:Class="APPMOVIL.Views.PrincipalView" BackgroundColor="#2A2A2A" NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <vm:AvionesViewModel></vm:AvionesViewModel>
     </ContentPage.BindingContext>
     <StackLayout >
         <StackLayout >
             <StackLayout Padding="10,0"   Background="black" Orientation="Horizontal">
-                <Label  Padding="0,25"  TextColor="White" Text=" Aerolinea Mx"  HorizontalOptions="StartAndExpand" 
+                <Label  Padding="0,25"  TextColor="White" Text=" Aerolínea Mx"  HorizontalOptions="StartAndExpand" 
                            FontAttributes="Bold"  VerticalOptions="Center" FontSize="26" />
             </StackLayout>
         </StackLayout>
