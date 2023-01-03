@@ -52,7 +52,9 @@
                        
 
                         <Button TextColor="White" CornerRadius="40" BackgroundColor="#242424" Command="{Binding AgregarCommand }" Text="Agregar"></Button>
-                        <Label Text="{Binding Errores}"></Label>
+                            <Button TextColor="White" CornerRadius="40" BackgroundColor="#CB2121" Command="{Binding CancelarAccionCommand }" Text="Cancelar"></Button>
+
+                            <Label Text="{Binding Errores}"></Label>
                     </StackLayout>
                 </StackLayout>
             </Frame>

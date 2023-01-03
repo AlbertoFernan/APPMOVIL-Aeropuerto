@@ -51,7 +51,7 @@
 
 
                             <Button TextColor="White" CornerRadius="40" BackgroundColor="#242424" Command="{Binding GuardarCommand }" Text="Guardar"></Button>
-                            <Button TextColor="White" CornerRadius="40" BackgroundColor="#CB2121" Command="{Binding CancelarCommand }" Text="Cancelar"></Button>
+                            <Button TextColor="White" CornerRadius="40" BackgroundColor="#CB2121" Command="{Binding CancelarAccionCommand }" Text="Cancelar"></Button>
 
                             <Label Text="{Binding Errores}"></Label>
                         </StackLayout>

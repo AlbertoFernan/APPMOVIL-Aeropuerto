@@ -48,6 +48,8 @@ namespace APPMOVIL.ViewModels
         public ICommand AgregarCommand { get; set; }
         public ICommand GuardarCommand { get; set; }
         public ICommand CancelarCommand { get; set; }
+
+        public ICommand CancelarAccionCommand { get; set; }
         private static System.Timers.Timer aTimer;
 
 
@@ -68,11 +70,18 @@ namespace APPMOVIL.ViewModels
             VerAgregarCommand = new Command(VerAgregar);
             AgregarCommand = new Command(Agregar);
             CancelarCommand = new Command<Partidas>(Cancelar);
+            CancelarAccionCommand= new Command(RegresarAsync);
 
-            FechaFiltro=DateTime.Now.Date;
+            FechaFiltro =DateTime.Now.Date;
         }
 
-        private void Filtrar(object obj)
+        private async void RegresarAsync()
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+
+        }
+
+        private void Filtrar()
         {
             PartidasFiltradas = Partidas.Select(x => x).Where(x => x.Tiempo.Date == FechaFiltro).ToList();
             Actualizar(nameof(PartidasFiltradas));
@@ -91,9 +100,13 @@ namespace APPMOVIL.ViewModels
         private async void Cancelar(Partidas p)
         {
     
-            p.Status = "Cancelado";
-            await AvionesService.Update(p);
-            Actualizar(nameof(Partidas));
+            if(p.Status!= "Cancelado")
+            {
+                p.Status = "Cancelado";
+                await AvionesService.Update(p);
+                Filtrar();
+            }
+          
         }
 
         private  void SetTimer()
