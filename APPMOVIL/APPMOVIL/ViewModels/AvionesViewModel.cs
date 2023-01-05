@@ -77,6 +77,7 @@ namespace APPMOVIL.ViewModels
 
         private async void RegresarAsync()
         {
+            ActualizarLista();
             await Application.Current.MainPage.Navigation.PopAsync();
 
         }
@@ -91,9 +92,9 @@ namespace APPMOVIL.ViewModels
         {
             if (await AvionesService.Update(Partida))
             {
-               
-              
-                VerLista();
+
+                
+                RegresarAsync();
             }
         }
 
@@ -201,8 +202,8 @@ namespace APPMOVIL.ViewModels
             Partida.Tiempo= tiempo;
             if (await AvionesService.Insert(Partida))
             {
-               
-                VerLista();
+
+                RegresarAsync();
             }
            
           
@@ -211,7 +212,7 @@ namespace APPMOVIL.ViewModels
 
         private void VerAgregar()
         {
-
+            Errores = null;
             Partida = new Partidas();
             Fecha= DateTime.Now.Date;
            Hora = DateTime.Now.TimeOfDay;
@@ -224,6 +225,7 @@ namespace APPMOVIL.ViewModels
 
         private void VerEditar(Partidas p)
         {
+            Errores = null;
             Partida = p;
 
            
