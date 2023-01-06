@@ -90,6 +90,7 @@ namespace APPMOVIL.ViewModels
 
         private async void Guardar()
         {
+            Partida.Vuelo = Partida.Vuelo.ToUpper();
             if (await AvionesService.Update(Partida))
             {
 
@@ -196,18 +197,28 @@ namespace APPMOVIL.ViewModels
 
         private async void Agregar()
         {
-           
+            Partida.Vuelo = Partida.Vuelo.ToUpper();
             Partida.Status = "Programado";
             DateTime tiempo = new DateTime(Fecha.Year, Fecha.Month, Fecha.Day, Hora.Hours, Hora.Minutes, Hora.Seconds);
             Partida.Tiempo= tiempo;
-            if (await AvionesService.Insert(Partida))
-            {
+            if ((Partida.Tiempo>DateTime.Now))
 
-                RegresarAsync();
+            {
+                if (await AvionesService.Insert(Partida))
+                {
+
+                    RegresarAsync();
+                }
             }
-           
-          
-           
+            else
+            {
+                Errores = "Ingrese una fecha futura";
+            }
+
+            Actualizar(nameof(Errores));
+
+
+
         }
 
         private void VerAgregar()

@@ -32,9 +32,9 @@
                             </StackLayout.Resources>
                             <Label FontAttributes="Bold" FontSize="20" Text="Edite los datos del vuelo"/>
                             <Label>Fecha de salida:</Label>
-                            <DatePicker TextColor="Black"    Date="{Binding Partida.Tiempo.Date}"></DatePicker>
+                            <Label TextColor="Black"   Text="{Binding Partida.Tiempo.Date}"></Label>
                             <Label>Hora de salida:</Label>
-                            <TimePicker  TextColor="Black"     Time="{ Binding Partida.Tiempo.TimeOfDay}"></TimePicker>
+                            <Label TextColor="Black"      Text="{ Binding Partida.Tiempo.TimeOfDay}"></Label>
 
                             <Label>Destino:</Label>
                             <Entry Placeholder="[Destino]" PlaceholderColor="Gray"  Text="{Binding Partida.Destino}"></Entry>
@@ -43,8 +43,8 @@
                             <Entry  Placeholder="[Clave de Vuelo]" PlaceholderColor="Gray" Text="{Binding Partida.Vuelo}"></Entry>
 
                             <Label >Puerta de salida:</Label>
-                            <Frame Padding="1" BackgroundColor="#242424" CornerRadius="10" Margin="0">
-                                <Picker     ItemsSource="{Binding Puertas}" SelectedItem="{Binding Partida.Puerta}"  >
+                            <Frame Padding="1" BackgroundColor="#242424"  CornerRadius="15" Margin="0">
+                                <Picker  IsEnabled="False"    ItemsSource="{Binding Puertas}" SelectedItem="{Binding Partida.Puerta}"  >
 
                                 </Picker>
                             </Frame>
