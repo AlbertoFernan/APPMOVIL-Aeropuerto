@@ -90,31 +90,38 @@ namespace APPMOVIL.ViewModels
 
         private async void Guardar()
         {
+            Errores = null;
             Partida.Vuelo = Partida.Vuelo.ToUpper();
             if (await AvionesService.Update(Partida))
             {
 
                 
                 RegresarAsync();
+                Actualizar(nameof(Errores));
             }
         }
 
         private async void Cancelar(Partidas p)
         {
-    
-            if(p.Status!= "Cancelado")
+            Errores = null;
+            if (p.Status.ToLower() != "Cancelado"&& p.Status.ToLower() != "en vuelo" && p.Status.ToLower() != "abordando")
             {
                 p.Status = "Cancelado";
                 await AvionesService.Update(p);
                 Filtrar();
             }
-          
+            else
+            {
+                Errores = "Ya no es posible cancelar el vuelo.";
+            }
+            Actualizar(nameof(Errores));
+
         }
 
         private  void SetTimer()
         {
           
-            aTimer = new System.Timers.Timer(20000);
+            aTimer = new System.Timers.Timer(5000);
        
             aTimer.Elapsed += ATimer_ElapsedAsync;
             aTimer.AutoReset = true;
@@ -197,6 +204,7 @@ namespace APPMOVIL.ViewModels
 
         private async void Agregar()
         {
+            Errores = null;
             Partida.Vuelo = Partida.Vuelo.ToUpper();
             Partida.Status = "Programado";
             DateTime tiempo = new DateTime(Fecha.Year, Fecha.Month, Fecha.Day, Hora.Hours, Hora.Minutes, Hora.Seconds);
@@ -216,6 +224,7 @@ namespace APPMOVIL.ViewModels
             }
 
             Actualizar(nameof(Errores));
+            await ActualizarLista();
 
 
 
@@ -224,6 +233,7 @@ namespace APPMOVIL.ViewModels
         private void VerAgregar()
         {
             Errores = null;
+            Actualizar(nameof(Errores));
             Partida = new Partidas();
             Fecha= DateTime.Now.Date;
            Hora = DateTime.Now.TimeOfDay;
@@ -237,6 +247,7 @@ namespace APPMOVIL.ViewModels
         private void VerEditar(Partidas p)
         {
             Errores = null;
+            Actualizar(nameof(Errores));
             Partida = p;
 
            

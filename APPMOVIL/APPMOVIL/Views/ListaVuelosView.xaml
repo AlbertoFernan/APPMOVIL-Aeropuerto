@@ -80,7 +80,10 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                
             </ScrollView>
+
+            <Label HorizontalOptions="Center" TextColor="Red" Text="{Binding Errores}"></Label>
         </StackLayout>
     </ContentPage.Content>
         
